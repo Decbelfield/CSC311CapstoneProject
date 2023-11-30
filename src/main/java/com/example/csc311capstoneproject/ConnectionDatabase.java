@@ -85,7 +85,7 @@ public class ConnectionDatabase {
         return hasRegisteredUsers;
     }
 
-    public void queryUserByLastName(String name) {
+    public void queryUserByName(String name) {
         connectToDatabase();
         try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM users WHERE last_name = ?")) {
