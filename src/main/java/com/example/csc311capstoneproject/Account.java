@@ -8,6 +8,7 @@ public class Account {
     String phone;
     int id;
     int income;
+    // Constructor for all the variables needed for the Account
     public Account() {
         this.name = "";
         this.DOB = "";
@@ -26,6 +27,8 @@ public class Account {
         this.id = id;
         this.income = income;
     }
+
+    //Getters and Setters
 
     public String getName() {
         return name;
