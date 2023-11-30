@@ -6,6 +6,7 @@ public class Account {
     String email;
     String password;
     String phone;
+    String address;
     int id;
     int income;
     // Constructor for all the variables needed for the Account
@@ -15,15 +16,18 @@ public class Account {
         this.email = "";
         this.password = "";
         this.phone = "";
+        this.address = "";
         this.id = 0;
         this.income = 0;
+
     }
-    public Account(String name, String DOB, String email, String password, String phone, int id, int income) {
+    public Account(String name, String DOB, String email, String password, String phone,String address, int id, int income) {
         this.name = name;
         this.DOB = DOB;
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.address = address;
         this.id = id;
         this.income = income;
     }
@@ -68,6 +72,14 @@ public class Account {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public int getId() {
