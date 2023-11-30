@@ -9,6 +9,7 @@ public class Account {
     String address;
     int id;
     int income;
+    String imageURL;
     // Constructor for all the variables needed for the Account
     public Account() {
         this.name = "";
@@ -19,9 +20,10 @@ public class Account {
         this.address = "";
         this.id = 0;
         this.income = 0;
+        this.imageURL = "";
 
     }
-    public Account(String name, String DOB, String email, String password, String phone,String address, int id, int income) {
+    public Account(String name, String DOB, String email, String password, String phone,String address, int id, int income, String imageURL) {
         this.name = name;
         this.DOB = DOB;
         this.email = email;
@@ -30,6 +32,7 @@ public class Account {
         this.address = address;
         this.id = id;
         this.income = income;
+        this.imageURL = imageURL;
     }
 
     //Getters and Setters
@@ -96,5 +99,13 @@ public class Account {
 
     public void setIncome(int income) {
         this.income = income;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }
