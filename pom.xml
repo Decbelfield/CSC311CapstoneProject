@@ -38,6 +38,66 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.fastjrun.codeg.example</groupId>
+            <artifactId>example-sdkg-provider</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fastjrun.codeg.example</groupId>
+            <artifactId>example-sdkg-api</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fastjrun.codeg.example</groupId>
+            <artifactId>example-sdkg-generator</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xipki.example</groupId>
+            <artifactId>certprofile-example</artifactId>
+            <version>6.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>nl.mirila.example</groupId>
+            <artifactId>mirila-example</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xipki.example</groupId>
+            <artifactId>license-example</artifactId>
+            <version>6.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fastjrun.codeg.example</groupId>
+            <artifactId>sdkg-example</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.clouway.kcqrs.example</groupId>
+            <artifactId>kcqrs-example</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.clouway.kcqrs.example</groupId>
+            <artifactId>kcqrs-example</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fastjrun.codeg.example</groupId>
+            <artifactId>example-sdkg</artifactId>
+            <version>4.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ofcoder.klein.example</groupId>
+            <artifactId>klein-example</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>example</groupId>
+            <artifactId>example</artifactId>
+            <version>-</version>
+        </dependency>
     </dependencies>
 
     <build>

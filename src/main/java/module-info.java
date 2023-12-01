@@ -6,4 +6,6 @@ module com.example.csc311capstoneproject {
 
     opens com.example.csc311capstoneproject to javafx.fxml;
     exports com.example.csc311capstoneproject;
+    exports db;
+    opens db to javafx.fxml;
 }

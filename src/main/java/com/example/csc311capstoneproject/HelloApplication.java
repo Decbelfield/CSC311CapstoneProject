@@ -1,7 +1,6 @@
 package com.example.csc311capstoneproject;
 
-import db.ConnDbOps;
-
+import db.ConnectionDatabase;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,15 +10,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
 public class HelloApplication extends Application {
     private static Scene scene;
-    private static ConnDbOps cdbop;
+    private static ConnectionDatabase db;
     private Stage primaryStage;
 
     public static void main(String[] args) {
-        cdbop = new ConnDbOps();
+        ConnectionDatabase ConnectionDatabase = new ConnectionDatabase();
         launch(args);
 
     }

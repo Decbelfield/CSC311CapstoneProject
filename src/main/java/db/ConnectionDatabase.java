@@ -1,5 +1,6 @@
-package com.example.csc311capstoneproject;
+package db;
 
+import com.example.csc311capstoneproject.Account;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -99,17 +100,18 @@ public class ConnectionDatabase {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    String name = resultSet.getString("name");
+                    String accountName = resultSet.getString("name");
                     String DOB = resultSet.getString("DOB");
                     String email = resultSet.getString("email");
                     String password = resultSet.getString("password");
+                    String phone = resultSet.getString("phone");
                     String address = resultSet.getString("address");
                     int id = resultSet.getInt("id");
                     int income = resultSet.getInt("income");
+                    String imageURL = resultSet.getString("imageURL");
 
-
-                    lg.makeLog(" Name: " + name + ",Date of Birth: " +  DOB + ",Email: "
-                            + DOB + ", Password: " + password + ", Address: " + address +", ID: " + id + ", Income:" + income);
+                    Account account = new Account(accountName, DOB, email, password, phone, address, id, income, imageURL);
+                    data.add(account);
                 }
             }
         } catch (SQLException e) {
@@ -126,16 +128,19 @@ public class ConnectionDatabase {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String name = resultSet.getString("name");
+                String accountName = resultSet.getString("name");
                 String DOB = resultSet.getString("DOB");
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
+                String phone = resultSet.getString("phone");
                 String address = resultSet.getString("address");
                 int id = resultSet.getInt("id");
                 int income = resultSet.getInt("income");
+                String imageURL = resultSet.getString("imageURL");
 
-                lg.makeLog(" Name: " + name + ",Date of Birth: " +  DOB + ",Email: "
-                        + DOB + ", Password: " + password + ", Address: " + address +", ID: " + id + ", Income:" + income);}
+                Account account = new Account(accountName, DOB, email, password, phone, address, id, income, imageURL);
+                data.add(account);
+            }
 
             preparedStatement.close();
             conn.close();
@@ -148,14 +153,17 @@ public class ConnectionDatabase {
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO users (first_name, last_name, department, major, email, imageURL) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users (name, DOB, email, password, phone, address, income, imageURL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, account.name());
-            preparedStatement.setString(2, person.getLastName());
-            preparedStatement.setString(3, person.getDepartment());
-            preparedStatement.setString(4, person.getMajor());
-            preparedStatement.setString(5, person.getEmail());
-            preparedStatement.setString(6, person.getImageURL());
+            preparedStatement.setString(1, account.getName());
+            preparedStatement.setString(2, account.getDOB());
+            preparedStatement.setString(3, account.getEmail());
+            preparedStatement.setString(4, account.getPassword());
+            preparedStatement.setString(5, account.getPhone());
+            preparedStatement.setString(6, account.getAddress());
+            preparedStatement.setInt(7, account.getIncome());
+            preparedStatement.setString(8, account.getImageURL());
+
             int row = preparedStatement.executeUpdate();
             if (row > 0) {
                 lg.makeLog("A new user was inserted successfully.");
@@ -167,28 +175,31 @@ public class ConnectionDatabase {
         }
     }
 
-    public void editUser(int id, Person p) {
+    public void editUser(int id, Account account) {
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "UPDATE users SET first_name=?, last_name=?, department=?, major=?, email=?, imageURL=? WHERE id=?";
+            String sql = "UPDATE users SET name=?, DOB=?, email=?, password=?, phone=?, address=?, income=?, imageURL=? WHERE id=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, p.getFirstName());
-            preparedStatement.setString(2, p.getLastName());
-            preparedStatement.setString(3, p.getDepartment());
-            preparedStatement.setString(4, p.getMajor());
-            preparedStatement.setString(5, p.getEmail());
-            preparedStatement.setString(6, p.getImageURL());
-            preparedStatement.setInt(7, id);
+            preparedStatement.setString(1, account.getName());
+            preparedStatement.setString(2, account.getDOB());
+            preparedStatement.setString(3, account.getEmail());
+            preparedStatement.setString(4, account.getPassword());
+            preparedStatement.setString(5, account.getPhone());
+            preparedStatement.setString(6, account.getAddress());
+            preparedStatement.setInt(7, account.getIncome());
+            preparedStatement.setString(8, account.getImageURL());
+            preparedStatement.setInt(9, id);
             preparedStatement.executeUpdate();
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
-    public void deleteRecord(Person person) {
-        int id = person.getId();
+
+    public void deleteRecord(Account account) {
+        int id = account.getId();
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -199,32 +210,36 @@ public class ConnectionDatabase {
             preparedStatement.close();
             conn.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
     //Method to retrieve id from database where it is auto-incremented.
-    public int retrieveId(Person p) {
+    public int retrieveId(Account account) {
         connectToDatabase();
-        int id;
+        int id = -1; // Initialize with a default value
+
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             String sql = "SELECT id FROM users WHERE email=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, p.getEmail());
+            preparedStatement.setString(1, account.getEmail());
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            id = resultSet.getInt("id");
+
+            if (resultSet.next()) {
+                id = resultSet.getInt("id");
+            }
+
             preparedStatement.close();
             conn.close();
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+
         lg.makeLog(String.valueOf(id));
         return id;
     }
 }
 
-}
+
