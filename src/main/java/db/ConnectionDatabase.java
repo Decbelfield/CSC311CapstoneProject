@@ -1,6 +1,7 @@
 package db;
 
 import com.example.csc311capstoneproject.Account;
+import com.example.csc311capstoneproject.MyLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -37,7 +38,8 @@ public class ConnectionDatabase {
                 int id = resultSet.getInt("id");
                 int income = resultSet.getInt("income");
                 String imageURL = resultSet.getString("imageURL");
-                data.add(new Account(name, DOB, email, password, phone, address, id, income, imageURL));
+                String social = resultSet.getString("social");
+                data.add(new Account(name, DOB, email, password, phone, address, id, income, imageURL, social));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,7 +67,8 @@ public class ConnectionDatabase {
                         "phone VARCHAR(200)," +
                         "address VARCHAR(200)," +
                         "income INT(10)," +
-                        "imageURL VARCHAR(200))";
+                        "imageURL VARCHAR(200))" +
+                        "social VARCHAR(200))";
                 dbStatement.executeUpdate(sql);
             }
 
@@ -109,8 +112,10 @@ public class ConnectionDatabase {
                     int id = resultSet.getInt("id");
                     int income = resultSet.getInt("income");
                     String imageURL = resultSet.getString("imageURL");
+                    String social = resultSet.getString("social");
 
-                    Account account = new Account(accountName, DOB, email, password, phone, address, id, income, imageURL);
+
+                    Account account = new Account(accountName, DOB, email, password, phone, address, id, income, imageURL,social);
                     data.add(account);
                 }
             }
@@ -137,8 +142,10 @@ public class ConnectionDatabase {
                 int id = resultSet.getInt("id");
                 int income = resultSet.getInt("income");
                 String imageURL = resultSet.getString("imageURL");
+                String social = resultSet.getString("social");
 
-                Account account = new Account(accountName, DOB, email, password, phone, address, id, income, imageURL);
+
+                Account account = new Account(accountName, DOB, email, password, phone, address, id, income, imageURL,social);
                 data.add(account);
             }
 
@@ -163,6 +170,8 @@ public class ConnectionDatabase {
             preparedStatement.setString(6, account.getAddress());
             preparedStatement.setInt(7, account.getIncome());
             preparedStatement.setString(8, account.getImageURL());
+            preparedStatement.setString(9, account.getSocial());
+
 
             int row = preparedStatement.executeUpdate();
             if (row > 0) {
@@ -190,6 +199,8 @@ public class ConnectionDatabase {
             preparedStatement.setInt(7, account.getIncome());
             preparedStatement.setString(8, account.getImageURL());
             preparedStatement.setInt(9, id);
+            preparedStatement.setString(10, account.getSocial());
+
             preparedStatement.executeUpdate();
             preparedStatement.close();
             conn.close();
