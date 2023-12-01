@@ -7,6 +7,7 @@ public class Account {
     String password;
     String phone;
     String address;
+    String social;
     int id;
     int income;
     String imageURL;
@@ -21,9 +22,10 @@ public class Account {
         this.id = 0;
         this.income = 0;
         this.imageURL = "";
+        this.social = "";
 
     }
-    public Account(String name, String DOB, String email, String password, String phone,String address, int id, int income, String imageURL) {
+    public Account(String name, String DOB, String email, String password, String phone,String address, int id, int income, String imageURL, String social) {
         this.name = name;
         this.DOB = DOB;
         this.email = email;
@@ -33,6 +35,7 @@ public class Account {
         this.id = id;
         this.income = income;
         this.imageURL = imageURL;
+        this.social = social;
     }
 
     //Getters and Setters
@@ -103,6 +106,14 @@ public class Account {
 
     public String getImageURL() {
         return imageURL;
+    }
+
+    public String getSocial() {
+        return social;
+    }
+
+    public void setSocial(String social) {
+        this.social = social;
     }
 
     public void setImageURL(String imageURL) {
