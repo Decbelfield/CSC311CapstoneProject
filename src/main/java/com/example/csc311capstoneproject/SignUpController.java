@@ -1,142 +1,141 @@
 package com.example.csc311capstoneproject;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.input.KeyCode;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import java.io.IOException;
 
+/**
+ * Controller class for the Registration Application.
+ *
+ * Within the GUI, each data field is validated after the focus is swapped. If the data doesn't match the regular expression,
+ * the user is forced to enter valid data to proceed with the registration process. Once all data fields have been verified,
+ * the user is able to register.
+ *
+ * @author guzmjo
+ */
 public class SignUpController {
     @FXML
-    private TextField EnterFirstName;
+    private TextField fNameField, LNameField, emailField, dobField, zipField;
     @FXML
-    private TextField EnterLastName;
+    private Label fNameErr, LNameErr, emailErr, dobErr, zipErr;
     @FXML
-    private TextField EmailText;
-    @FXML
-    private TextField DOBText;
-    @FXML
-    private TextField ZipCodeText;
-    @FXML
-    private TextField PhoneNumberText;
-    @FXML
-    private Button ClickButton;
+    private Label fNameCheck, LNameCheck, emailCheck, dobCheck, zipCheck, RegistrationComplete;
+
 
     @FXML
-    private Text firstNameError;
+    private Button createBtn;
     @FXML
-    private Text lastNameError;
-    @FXML
-    private Text emailError;
-    @FXML
-    private Text dobError;
-    @FXML
-    private Text zipCodeError;
-    @FXML
-    private Text InvalidPhoneNumber;
-    @FXML
-    private Text SucessfulReg;
+    private Button ReturnToLogIn;
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    private boolean flag;
+
 
     @FXML
-    protected void initialize() {
-        // Ensure all error messages and the successful registration message are initially hidden
-        firstNameError.setOpacity(0.0);
-        lastNameError.setOpacity(0.0);
-        emailError.setOpacity(0.0);
-        dobError.setOpacity(0.0);
-        zipCodeError.setOpacity(0.0);
-        SucessfulReg.setOpacity(0.0);
-    }
-    //ensures all patterns match upon hitting the registeration button
-    private boolean isValid(String input, String pattern) {
-        return input.matches(pattern);
-    }
-    //checks to make sure if everything matches, the errors are kept at opacity 0 and the registration complete text is visible
+    public void initialize() {
 
-    private void checkAllFieldsValid() {
-        if (firstNameError.getOpacity() == 0.0 && lastNameError.getOpacity() == 0.0 &&
-                emailError.getOpacity() == 0.0 && dobError.getOpacity() == 0.0 &&
-                zipCodeError.getOpacity() == 0.0&& InvalidPhoneNumber.getOpacity() == 0.0) {
+        dataVerification(fNameField,fNameErr, fNameCheck,"[A-Za-z]{2,25}");
+        dataVerification(LNameField, LNameErr, LNameCheck, "[A-Za-z]{2,25}");
+        dataVerification(emailField, emailErr, emailCheck, "[a-z]+@farmingdale.edu");
+        dataVerification(dobField, dobErr, dobCheck,"\\d{2}/\\d{2}/\\d{4}");
+        dataVerification(zipField, zipErr, zipCheck,"\\d{5}");
 
-            SucessfulReg.setOpacity(1.0);
-        } else {
-            SucessfulReg.setOpacity(0.0);
-        }
     }
-    //calls all of the functions in the controller to make sure all of the patterns in each function match when clicking the register button
-//if the pattern fails, the error text will lose its opacity and be visible
-    @FXML
-    protected void ClickButton() {
-        // Check each field when the button is clicked
-        CheckFirstName();
-        CheckLastName();
-        CheckEmail();
-        CheckDOB();
-        EnterZipCode();
-        CheckPhoneNumber();
 
-        // After all checks, see if everything is valid
-        checkAllFieldsValid();
+    /**
+     * Method verifies the data within the specified text field. Depending on whether the data matches the regular
+     * expression passed as a parameter, an error message will appear and the user is forced to enter data
+     * that matches the regular expression or the user is able to traverse to the following text field to continue
+     * the registration process.
+     *
+     * @param txtField where the data will be entered
+     * @param error error message to be displayed
+     * @param check check mark that appears when data is valid
+     * @param regEx regular expression
+     */
+    private void dataVerification(TextField txtField, Label error, Label check, String regEx) {
+        txtField.setOnKeyPressed(event -> {
+
+            if (event.getCode() != KeyCode.TAB && flag) {
+                txtField.setStyle("-fx-border-color: none;");
+                flag = false;
+            }
+
+        });
+
+        txtField.focusedProperty().addListener((observableValue, oldValue, newValue) -> {
+
+            if (!newValue) {
+                if (txtField.getText().matches(regEx)) {
+                    txtField.setEditable(false);
+                    txtField.setBorder(null);
+                    error.setVisible(false);
+                    check.setVisible(true);
+                    validateData();
+
+                } else {
+
+                    txtField.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                    txtField.setVisible(true);
+                    txtField.requestFocus();
+                    error.setVisible(true);
+                    flag = true;
+                }
+
+            }
+        });
     }
-    //checks to make sure the first name has the correct pattern. it covers both lower case and upper case letters for words whos letters range from 2 to 25
-    //if the pattern fails, the error text will lose its opacity and be visible
+
+    /**
+     * Method will enable the button to register only when all fields of data have been validated
+     */
     @FXML
-    protected void CheckFirstName() {
-        if(!isValid(EnterFirstName.getText(), "[A-Za-z]{2,25}")){
-            firstNameError.setOpacity(1.0);
-        } else {
-            firstNameError.setOpacity(0.0);
-        }
+    private void validateData() {
+        //use isVisible() b/c check will only appear after data has been validated
+        boolean isFirstNameValid = fNameCheck.isVisible();
+        boolean isLastNameValid = LNameCheck.isVisible();
+        boolean isEmailValid = emailCheck.isVisible();
+        boolean isDobValid = dobCheck.isVisible();
+        boolean isZipValid = zipCheck.isVisible();
+
+        //if all data fields have been validated, button will be enabled
+        createBtn.setDisable(!(isFirstNameValid && isLastNameValid && isEmailValid && isDobValid && isZipValid));
     }
-    //checks to make sure the last name has the correct pattern. it covers both lower case and upper case letters for words whos letters range from 2 to 25
-    //if the pattern fails, the error text will lose its opacity and be visible
+
+    /**
+     * Swaps to another fxml file
+     * @param actionEvent button click
+     * @throws IOException
+     */
     @FXML
-    protected void CheckLastName() {
-        if(!isValid(EnterLastName.getText(), "[A-Za-z]{2,25}")){
-            lastNameError.setOpacity(1.0);
-        } else {
-            lastNameError.setOpacity(0.0);
+    private void swapScene(ActionEvent actionEvent) throws IOException {
+        System.out.println("CLICKED");
+        RegistrationComplete.setOpacity(1.0);
+    }
+   @FXML
+    public void goBack(ActionEvent actionEvent) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+            Scene scene = new Scene(root, 900, 600);
+            scene.getStylesheets().add(getClass().getResource("/css/lightTheme.css").toExternalForm());
+            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-    //checks to make sure the the email has the correct pattern. it covers both upper/lower case words, numbers from 0-9 followed by any special characters like %+-
-    //also checks to make sure it only accepts emails from the @farmingdale.edu
-    //if the pattern fails, the error text will lose its opacity and be visible
-    @FXML
-    protected void CheckEmail() {
-        if(!isValid(EmailText.getText(), "[a-zA-Z0-9._%+-]+@farmingdale\\.edu")){
-            emailError.setOpacity(1.0);
-        } else {
-            emailError.setOpacity(0.0);
-        }
-    }
-    //checks to make sure the date of birth is valid and the user has to make sure to include a slash for month/day/year
-    //if the pattern fails, the error text will lose its opacity and be visible
-    @FXML
-    protected void CheckDOB() {
-        if(!isValid(DOBText.getText(), "\\d{2}/\\d{2}/\\d{4}")){
-            dobError.setOpacity(1.0);
-        } else {
-            dobError.setOpacity(0.0);
-        }
-    }
-    //checks to make sure the zipcode follows the same pattern within the 5 number parameter
-//if the pattern fails, the error text will lose its opacity and be visible
-    @FXML
-    protected void EnterZipCode() {
-        if(!isValid(ZipCodeText.getText(), "\\d{5}")){
-            zipCodeError.setOpacity(1.0);
-        } else {
-            zipCodeError.setOpacity(0.0);
-        }
-    }
-    //checks to make sure the phone number follows the same pattern as intended 3 numbers for the area code followed by a dash, 3 numbers for the middle number followed by another slash and then finally the last 4 digits
-    //if the pattern fails, the error text will lose its opacity and be visible
-    @FXML
-    protected void CheckPhoneNumber(){
-        if(!isValid(PhoneNumberText.getText(), "\\d{3}-\\d{3}-\\d{4}")){
-            InvalidPhoneNumber.setOpacity(1.0);
-        }
-        else{
-            InvalidPhoneNumber.setOpacity(0.0);
-        }
-    }
+
 }
