@@ -12,6 +12,10 @@ import javafx.scene.input.KeyCode;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Controller class for the Registration Application.
@@ -138,4 +142,43 @@ public class SignUpController {
         }
     }
 
+
+
+    @FXML
+    private void swapScene(ActionEvent actionEvent) throws IOException {
+        System.out.println("CLICKED");
+h
+        // Assuming all data is valid, save user information to the database
+        saveUserDataToDatabase();
+
+        RegistrationComplete.setOpacity(1.0);
+    }
+
+    private void saveUserDataToDatabase() {
+        String SQL_SERVER_URL = "jdbc:mysql://capstoneproj.mariadb.database.azure.com";
+        String username = "usfour@capstoneproj";
+        String password = "four_1234";
+
+        try (Connection connection = DriverManager.getConnection(SQL_SERVER_URL, username, password)) {
+            String sql = "INSERT INTO users (firstName, lastName, email, dob, zip) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement statement = prepareStatement(sql)) {
+                statement.setString(1, fNameField.getText());
+                statement.setString(2, LNameField.getText());
+                statement.setString(3, emailField.getText());
+                statement.setString(4, dobField.getText());
+                statement.setString(5, zipField.getText());
+
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle database errors
+        }
+    }
+
+    private PreparedStatement prepareStatement(String sql) {
+    }
+
+
 }
+

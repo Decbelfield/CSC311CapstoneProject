@@ -11,10 +11,10 @@ public class ConnectionDatabase {
 
     final static String DB_NAME = "CSC311_BD_TEMP";
     MyLogger lg = new MyLogger();
-    final static String SQL_SERVER_URL = "jdbc:mysql://csc311server2001.mariadb.database.azure.com";
-    final static String DB_URL = "jdbc:mysql://csc311server2001.mariadb.database.azure.com/" + DB_NAME;
-    final static String USERNAME = "decbelfield@csc311server2001";
-    final static String PASSWORD = "DataBased01";
+    final static String SQL_SERVER_URL = "jdbc:mysql://capstoneproj.mariadb.database.azure.com";
+    final static String DB_URL = "jdbc:mysql://capstoneproj.mariadb.database.azure.com/" + DB_NAME;
+    final static String USERNAME = "usfour@capstoneproj";
+    final static String PASSWORD = "four_1234";
 
     private final ObservableList<Account> data = FXCollections.observableArrayList();
 
@@ -251,6 +251,8 @@ public class ConnectionDatabase {
         lg.makeLog(String.valueOf(id));
         return id;
     }
+
+
 }
 
 
