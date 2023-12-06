@@ -13,7 +13,7 @@ public class ConnectionDatabase {
     MyLogger lg = new MyLogger();
     final static String SQL_SERVER_URL = "jdbc:mysql://capstoneproj.mariadb.database.azure.com";
     final static String DB_URL = "jdbc:mysql://capstoneproj.mariadb.database.azure.com/" + DB_NAME;
-    final static String USERNAME = "usfour@capstoneproj";
+    public final static String USERNAME = "usfour@capstoneproj";
     final static String PASSWORD = "four_1234";
 
     private final ObservableList<Account> data = FXCollections.observableArrayList();

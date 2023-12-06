@@ -1,7 +1,14 @@
 package com.example.csc311capstoneproject;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.prefs.Preferences;
+
+import static com.google.cloud.sql.jdbc.internal.ConnectionProperty.PASSWORD;
+import static db.ConnectionDatabase.USERNAME;
 
 public class UserSession {
 
@@ -48,7 +55,21 @@ public class UserSession {
     public String getPrivileges() {
         return this.privileges;
     }
+    public static void saveUser(String username, String password) {
+        try (Connection connection = DriverManager.getConnection( USERNAME, PASSWORD)) {
+            String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, username);
+                statement.setString(2, password);
 
+
+                ((PreparedStatement) statement).executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace(); //handle database errors
+                throw new RuntimeException(e);
+            }
+        }
+    }
     public void cleanUserSession() {
         this.userName = "";// or null
         this.password = "";
