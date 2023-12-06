@@ -5,9 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -33,6 +31,14 @@ public class SignUpController {
     private Label fNameErr, LNameErr, emailErr, dobErr, zipErr;
     @FXML
     private Label fNameCheck, LNameCheck, emailCheck, dobCheck, zipCheck, RegistrationComplete;
+    @FXML
+    private SplitPane TermsAndConditionsPane;
+    @FXML
+    private TextArea TermsText;
+    @FXML
+    private Button AgreedTerms;
+    @FXML
+    private Button RejectedTerms;
 
 
     @FXML
@@ -123,11 +129,11 @@ public class SignUpController {
      * @param actionEvent button click
      * @throws IOException
      */
-    @FXML
-    private void swapScene(ActionEvent actionEvent) throws IOException {
-        System.out.println("CLICKED");
-        RegistrationComplete.setOpacity(1.0);
-    }
+  //  @FXML
+   // private void swapScene(ActionEvent actionEvent) throws IOException {
+      //  System.out.println("CLICKED");
+       // RegistrationComplete.setOpacity(1.0);
+   // }
    @FXML
     public void goBack(ActionEvent actionEvent) {
         try {
@@ -142,12 +148,25 @@ public class SignUpController {
         }
     }
 
+@FXML
+public void register(ActionEvent actionEvent){
+    TermsAndConditionsPane.setOpacity(1.0);
+}
+
+@FXML
+public void RegistrationScroll() {
+    TermsText.caretPositionProperty().addListener((observable, oldValue, newValue) -> {
+        // Check if the caret is at the end of the text
+        boolean atBottom = newValue.intValue() == TermsText.getLength();
+        AgreedTerms.setDisable(!atBottom);
+    });
+}
 
 
     @FXML
     private void swapScene(ActionEvent actionEvent) throws IOException {
         System.out.println("CLICKED");
-h
+
         // Assuming all data is valid, save user information to the database
         saveUserDataToDatabase();
 
@@ -177,6 +196,7 @@ h
     }
 
     private PreparedStatement prepareStatement(String sql) {
+        return null;
     }
 
 
