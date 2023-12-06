@@ -123,11 +123,7 @@ public class SignUpController {
      * @param actionEvent button click
      * @throws IOException
      */
-    @FXML
-    private void swapScene(ActionEvent actionEvent) throws IOException {
-        System.out.println("CLICKED");
-        RegistrationComplete.setOpacity(1.0);
-    }
+
    @FXML
     public void goBack(ActionEvent actionEvent) {
         try {
@@ -175,6 +171,7 @@ h
             // Handle database errors
         }
     }
+
 
     private PreparedStatement prepareStatement(String sql) {
     }
