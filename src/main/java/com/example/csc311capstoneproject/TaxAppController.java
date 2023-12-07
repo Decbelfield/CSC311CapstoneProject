@@ -32,11 +32,13 @@ public class TaxAppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        data.add(new Client("Jakob", "O", "Guzman", "000-00-0000", "(631)827-5759", "guzmjo@farmingdale.edu", "1919 Joshuas Path","Central Islip", "NY", "11722"));
-        data.add(new Client("Andre ", "S", "Barnes", "000-00-0000", "(194)293-9666", "andreBarnes@gmail.com", "8 St John St", "Sayville", "NY", "11716"));
-        data.add(new Client("Karl", "T", "Huff", "000-00-0000", "(203)543-5334", "huffkr@farmingdale.edu", "480 Nostrand Ave","Central Islip", "NY", "11722"));
-        data.add(new Client("Edwin", "R", "Madrid", "000-00-0000", "(317)684-1735", "madridew@farmingdale.edu", "108 Applegate Dr","Central Islip", "NY", "11722"));
-        data.add(new Client("Christopher", "A", "Donaldson", "000-00-0000", "(755)852-4648", "donaldsonco@farmingdale.edu", "278 Ocean Ave","Central Islip", "NY", "11722"));
+        data.add(new Client("Jakob", "O", "Guzman", "162-26-7783", "(631)827-5759", "guzmjo@farmingdale.edu", "1919 Joshuas Path", "Central Islip", "NY", "11722"));
+        data.add(new Client("Andre ", "S", "Barnes", "970-68-9723", "(194)293-9666", "andreBarnes@gmail.com", "8611 Marsh Dr. ", "Patchogue", "NY", "11772"));
+        data.add(new Client("Karl", "T", "Huff", "439-17-5312", "(203)543-5334", "huffkr@farmingdale.edu", "702 Peachtree St.", "Troy", "NY", "12180"));
+        data.add(new Client("Edwin", "R", "Madrid", "026-90-5247", "(317)684-1735", "madridew@farmingdale.edu", "8 Cleveland St.", "Bronx", "NY", "10462"));
+        data.add(new Client("Christopher", "A", "Donaldson", "064-34-6157", "(755)852-4648", "donaldsonco@farmingdale.edu", "7155 Hawthorne St. ", "South Ozone Park", "NY", "11420"));
+        data.add(new Client("Ronald", "A", "Booth", "874-99-2742", "(749)015-8331", "boothro@farmingdale.edu", "994 Race Ave", "Westbury", "NY", "11590"));
+        data.add(new Client("Leo ", "A", "Noble", "728-94-6797", "(368)473-3755", "leono@farmingdale.edu", "59 Richardson Rd", "Astoria", "NY", "11103"));
 
         markedCol.setCellValueFactory(new PropertyValueFactory<>("marked"));
         fullNameCol.setCellValueFactory(new PropertyValueFactory<>("fullName"));
