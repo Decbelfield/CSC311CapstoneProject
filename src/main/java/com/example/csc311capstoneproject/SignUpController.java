@@ -21,24 +21,20 @@ public class SignUpController {
     private Label fNameErr, LNameErr, emailErr, dobErr, zipErr;
     @FXML
     private Label fNameCheck, LNameCheck, emailCheck, dobCheck, zipCheck, RegistrationComplete;
-    @FXML
-    private SplitPane TermsAndConditionsPane;
-    @FXML
-    private TextArea TermsText;
-    @FXML
-    private Button AgreedTerms, createBtn, ReturnToLogIn;
 
+@FXML
+private Button createBtn;
     private boolean flag;
 
     @FXML
     public void initialize() {
+        createBtn.setDisable(true);
         dataVerification(fNameField, fNameErr, fNameCheck, "[A-Za-z]{2,25}");
         dataVerification(LNameField, LNameErr, LNameCheck, "[A-Za-z]{2,25}");
         dataVerification(emailField, emailErr, emailCheck, "[a-z]+@farmingdale.edu");
         dataVerification(dobField, dobErr, dobCheck, "\\d{2}/\\d{2}/\\d{4}");
         dataVerification(zipField, zipErr, zipCheck, "\\d{5}");
 
-        RegistrationScroll(); // Call this method to set up the listener for the Terms and Conditions
     }
 
     private void dataVerification(TextField txtField, Label error, Label check, String regEx) {
@@ -65,31 +61,17 @@ public class SignUpController {
             }
         });
     }
-
-    @FXML
+@FXML
     private void validateData() {
         boolean isDataValid = fNameCheck.isVisible() && LNameCheck.isVisible() &&
                 emailCheck.isVisible() && dobCheck.isVisible() &&
                 zipCheck.isVisible();
-        createBtn.setDisable(!isDataValid);
+
+        createBtn.setDisable(!isDataValid); // Enable the create button if data is valid
     }
 
-    @FXML
-    private void swapScene(ActionEvent actionEvent) throws IOException {
-        if (AgreedTerms.isDisabled()) {
-            // If terms not agreed, do not proceed
-            return;
-        }
 
-        // Assuming all data is valid and terms agreed, save user information to the database
-        saveUserDataToDatabase();
 
-        Parent root = FXMLLoader.load(getClass().getResource("NextScene.fxml")); // Replace with your next scene file
-        Scene scene = new Scene(root);
-        Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
 
     private void saveUserDataToDatabase() {
         String SQL_SERVER_URL = "jdbc:mysql://capstoneproj.mariadb.database.azure.com";
@@ -112,13 +94,7 @@ public class SignUpController {
         }
     }
 
-    @FXML
-    private void RegistrationScroll() {
-        TermsText.caretPositionProperty().addListener((observable, oldValue, newValue) -> {
-            boolean atBottom = newValue.intValue() == TermsText.getLength();
-            AgreedTerms.setDisable(!atBottom);
-        });
-    }
+
 
     @FXML
     public void goBack(ActionEvent actionEvent) {
@@ -132,5 +108,13 @@ public class SignUpController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleCreateAccount(ActionEvent actionEvent) {
+        if (!createBtn.isDisabled()) {
+            saveUserDataToDatabase();
+            // Optionally, navigate to another scene or show a confirmation message
+        }
+    }
+
 }
 

@@ -7,11 +7,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311capstoneproject.AddFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.csc311capstoneproject.AddFormController">
    <children>
-      <Button layoutX="135.0" layoutY="389.0" mnemonicParsing="false" onAction="#AddClient" prefHeight="48.0" prefWidth="155.0" text="Add Client" />
-      <VBox layoutX="29.0" layoutY="55.0" spacing="20.0">
+      <Button layoutX="217.0" layoutY="440.0" mnemonicParsing="false" onAction="#AddClient" prefHeight="32.0" prefWidth="118.0" text="Add Client" />
+      <Text fx:id="SucessfulRegText" fill="#01720c" layoutX="205.0" layoutY="485.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Successfully made" />
+      <VBox layoutX="63.0" layoutY="52.0" prefWidth="417.0" spacing="20.0">
          <children>
             <VBox spacing="3.0">
                <children>
@@ -140,5 +142,7 @@
             </VBox>
          </children>
       </VBox>
+      <Button layoutX="217.0" layoutY="489.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="118.0" text="Return to Log in" />
+      <Text fx:id="DataErr" fill="#f80000" layoutX="245.0" layoutY="485.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Invalid Data" />
    </children>
 </AnchorPane>

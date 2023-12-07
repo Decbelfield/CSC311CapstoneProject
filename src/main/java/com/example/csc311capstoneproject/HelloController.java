@@ -1,16 +1,15 @@
 package com.example.csc311capstoneproject;
 
+import db.ConnectionDatabase;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-
-import java.io.IOException;
-
-
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -19,23 +18,17 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import model.Account;
-import db.ConnectionDatabase;
-import service.MyLogger;
 
 public class HelloController {
 
     @FXML
-    private TextField first_name, last_name, department, email, imageURL;
+    private TextField name, DOB, email, password, phone, address, income, imageURL, Social;
     @FXML
     private ImageView img_view;
     @FXML
@@ -43,9 +36,9 @@ public class HelloController {
     @FXML
     private TableView<Account> tv;
     @FXML
-    private TableColumn<Account, Integer> tv_id;
+    private TableColumn<Account, Integer> tv_id, tv_income;
     @FXML
-    private TableColumn<Account, String> tv_fn, tv_ln, tv_department, tv_email;
+    private TableColumn<Account, String> tv_name, tv_DOB, tv_email, tv_password, tv_phone, tv_address, tv_Social;
     @FXML
     private Button deleteButton, clearButton, editButton, addBtn;
     @FXML
@@ -60,19 +53,25 @@ public class HelloController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            tv_fn.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tv_ln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            tv_department.setCellValueFactory(new PropertyValueFactory<>("department"));
+            tv_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            tv_DOB.setCellValueFactory(new PropertyValueFactory<>("DOB"));
             tv_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+            tv_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            tv_address.setCellValueFactory(new PropertyValueFactory<>("address"));
+            tv_income.setCellValueFactory(new PropertyValueFactory<>("income"));
+            tv_Social.setCellValueFactory(new PropertyValueFactory<>("social"));
+
             tv.setItems(data);
 
             editButton.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
             deleteButton.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
             addBtn.disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            first_name.getText().isEmpty() || last_name.getText().isEmpty() ||
-                                    department.getText().isEmpty() || MajorComboBox.getValue() == null ||
-                                    email.getText().isEmpty(), first_name.textProperty(), last_name.textProperty(),
-                    department.textProperty(), MajorComboBox.valueProperty(), email.textProperty()));
+                            name.getText().isEmpty() || DOB.getText().isEmpty() ||
+                                    email.getText().isEmpty() ||address.getText().isEmpty() ||
+                                    income.getText().isEmpty() || MajorComboBox.getValue() == null ||
+                                    Social.getText().isEmpty() ||
+                                    password.getText().isEmpty(), name.textProperty(), DOB.textProperty(),
+                    email.textProperty(), MajorComboBox.valueProperty(), password.textProperty()));
 
             MajorComboBox.setItems(FXCollections.observableArrayList("Business", "CSC", "CPIS"));
 
@@ -84,15 +83,18 @@ public class HelloController {
     @FXML
     public void addNewRecord() {
         if (validateFields()) {
-            String selectedMajor = MajorComboBox.getValue();
-            if (selectedMajor != null) {
+            try {
                 Account account = new Account(
-                        first_name.getText(),
-                        last_name.getText(),
-                        department.getText(),
-                        selectedMajor,
+                        name.getText(),
+                        DOB.getText(),
                         email.getText(),
-                        imageURL.getText()
+                        password.getText(),
+                        phone.getText(),
+                        address.getText(),
+                        0, // Assuming ID is auto-generated or retrieved from the database
+                        Integer.parseInt(income.getText()),
+                        imageURL.getText(),
+                        Social.getText()
                 );
                 cnUtil.insertUser(account);
                 int generatedId = cnUtil.retrieveId(account);
@@ -100,39 +102,42 @@ public class HelloController {
                 data.add(account);
                 clearForm();
                 AddStatus.setText("Record added successfully.");
-                AddStatus.setOpacity(1.0);
-                DeleteStatus.setOpacity(0.0);
-                EditStatus.setOpacity(0.0);
-            } else {
-                AddStatus.setText("Please select a major.");
-                AddStatus.setOpacity(1.0);
-                DeleteStatus.setOpacity(0.0);
-                EditStatus.setOpacity(0.0);
+            } catch (NumberFormatException e) {
+                AddStatus.setText("Error: Income must be a valid number.");
+                MyLogger.makeLog("NumberFormatException: " + e.getMessage());
             }
         } else {
             AddStatus.setText("Please fill in all fields correctly.");
-            AddStatus.setOpacity(1.0);
-            DeleteStatus.setOpacity(0.0);
-            EditStatus.setOpacity(0.0);
         }
+
+        AddStatus.setOpacity(1.0);
+        DeleteStatus.setOpacity(0.0);
+        EditStatus.setOpacity(0.0);
     }
 
+
     private boolean validateFields() {
-        return !first_name.getText().trim().isEmpty() &&
-                !last_name.getText().trim().isEmpty() &&
-                !department.getText().trim().isEmpty() &&
-                MajorComboBox.getValue() != null &&
-                !email.getText().trim().isEmpty();
+        // Validation logic based on Account fields
+        return !name.getText().trim().isEmpty() &&
+                !DOB.getText().trim().isEmpty() &&
+                !email.getText().trim().isEmpty() &&
+                !phone.getText().trim().isEmpty() &&
+                !address.getText().trim().isEmpty() &&
+                !income.getText().trim().isEmpty() &&
+                !Social.getText().trim().isEmpty();
     }
 
     @FXML
     public void clearForm() {
-        first_name.clear();
-        last_name.clear();
-        department.clear();
-        MajorComboBox.getSelectionModel().clearSelection();
+        name.clear();
+        DOB.clear();
         email.clear();
+        password.clear();
+        phone.clear();
+        address.clear();
+        income.clear();
         imageURL.clear();
+        Social.clear();
     }
 
     @FXML
@@ -171,27 +176,26 @@ public class HelloController {
 
     @FXML
     protected void editRecord() {
-        // Get the selected person from the table
-        Person selectedPerson = tv.getSelectionModel().getSelectedItem();
+        // Get the selected account from the table
+        Account selectedAccount = tv.getSelectionModel().getSelectedItem();
 
-        if (selectedPerson != null) {
-            int index = data.indexOf(selectedPerson);
+        if (selectedAccount != null) {
+            int index = data.indexOf(selectedAccount);
 
-            // Ensure MajorComboBox has a selected value
-            if (MajorComboBox.getValue() == null) {
-                EditStatus.setText("Please select a major.");
-                EditStatus.setOpacity(1.0);
-                return;
-            }
+            // Update the account properties from the form fields
+            selectedAccount.setName(name.getText());
+            selectedAccount.setDOB(DOB.getText());
+            selectedAccount.setEmail(email.getText());
+            selectedAccount.setPassword(password.getText());
+            selectedAccount.setPhone(phone.getText());
+            selectedAccount.setAddress(address.getText());
+            selectedAccount.setIncome(Integer.parseInt(income.getText()));
+            selectedAccount.setImageURL(imageURL.getText());
+            selectedAccount.setSocial(Social.getText());
 
-            // Create a new Person object with the actual ID and updated values
-            Person updatedPerson = new Person(selectedPerson.getId(), first_name.getText(), last_name.getText(),
-                    department.getText(), MajorComboBox.getValue().name(), email.getText(),
-                    imageURL.getText());
-
-            // Update the person in the database and in the ObservableList
-            cnUtil.editUser(selectedPerson.getId(), updatedPerson);
-            data.set(index, updatedPerson);
+            // Update the account in the database and in the ObservableList
+            cnUtil.editUser(selectedAccount.getId(), selectedAccount);
+            data.set(index, selectedAccount);
             tv.refresh();
 
             // Update status messages
@@ -208,7 +212,7 @@ public class HelloController {
     @FXML
     protected void deleteRecord() {
         // Get the selected person from the table
-        Person p = tv.getSelectionModel().getSelectedItem();
+        Account p = tv.getSelectionModel().getSelectedItem();
         int index = data.indexOf(p);
 
         // Delete the person from the database
@@ -239,13 +243,13 @@ public class HelloController {
 
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
-        Person p = tv.getSelectionModel().getSelectedItem();
-        first_name.setText(p.getFirstName());
-        last_name.setText(p.getLastName());
-        department.setText(p.getDepartment());
-        MajorComboBox.setValue(Major.valueOf(p.getMajor())); // Set ComboBox value
-        email.setText(p.getEmail());
-        imageURL.setText(p.getImageURL());
+        Account selectedAccount = tv.getSelectionModel().getSelectedItem();
+        if (selectedAccount != null) {
+            name.setText(selectedAccount.getName());
+            DOB.setText(selectedAccount.getDOB());
+            email.setText(selectedAccount.getEmail());
+            // ... [Set other fields]
+        }
     }
 
     public void lightTheme(ActionEvent actionEvent) {
@@ -305,7 +309,7 @@ public class HelloController {
     }
 
     private Parent loadLoginFXML() throws IOException {
-        return FXMLLoader.load(getClass().getResource("/view/login.fxml"));
+        return FXMLLoader.load(getClass().getResource("LogIn.fxml"));
     }
 
     private static enum Major { Business, CSC, CPIS }
