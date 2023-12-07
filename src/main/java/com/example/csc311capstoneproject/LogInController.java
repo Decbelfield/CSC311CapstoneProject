@@ -81,7 +81,7 @@ public class LogInController{
         UserSession.saveUser(username, password);
         // If login is successful, navigate to another scene
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
             Scene scene = new Scene(root, 900, 600);
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
