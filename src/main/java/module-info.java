@@ -3,6 +3,7 @@ module com.example.csc311capstoneproject {
     requires javafx.fxml;
     requires java.sql;
     requires java.prefs;
+    requires appengine.api;
 
 
     opens com.example.csc311capstoneproject to javafx.fxml;

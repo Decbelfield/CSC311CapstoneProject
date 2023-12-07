@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,7 +27,7 @@ import java.sql.SQLException;
  * the user is forced to enter valid data to proceed with the registration process. Once all data fields have been verified,
  * the user is able to register.
  *
- * @author guzmjo
+ * @author guzmo
  */
 public class SignUpController {
     @FXML
@@ -143,7 +146,7 @@ public class SignUpController {
     @FXML
     private void swapScene(ActionEvent actionEvent) throws IOException {
         System.out.println("CLICKED");
-h
+
         // Assuming all data is valid, save user information to the database
         saveUserDataToDatabase();
 
@@ -175,6 +178,9 @@ h
 
     private PreparedStatement prepareStatement(String sql) {
     }
+
+
+
 
 
 }
