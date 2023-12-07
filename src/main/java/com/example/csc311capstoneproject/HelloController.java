@@ -35,7 +35,7 @@ import service.MyLogger;
 public class HelloController {
 
     @FXML
-    private TextField first_name, last_name, department, email, imageURL;
+    private TextField name, DOB, email, password, phone, address, income, imageURL, Social;
     @FXML
     private ImageView img_view;
     @FXML
@@ -43,9 +43,9 @@ public class HelloController {
     @FXML
     private TableView<Account> tv;
     @FXML
-    private TableColumn<Account, Integer> tv_id;
+    private TableColumn<Account, Integer> tv_id, tv_income;
     @FXML
-    private TableColumn<Account, String> tv_fn, tv_ln, tv_department, tv_email;
+    private TableColumn<Account, String> tv_name, tv_DOB, tv_email, tv_password, tv_phone, tv_address, tv_Social;
     @FXML
     private Button deleteButton, clearButton, editButton, addBtn;
     @FXML
@@ -60,19 +60,26 @@ public class HelloController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             tv_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            tv_fn.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tv_ln.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-            tv_department.setCellValueFactory(new PropertyValueFactory<>("department"));
+            tv_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            tv_DOB.setCellValueFactory(new PropertyValueFactory<>("Date Of Birth"));
             tv_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+            tv_password.setCellValueFactory(new PropertyValueFactory<>("department"));
+            tv_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            tv_address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+            tv_income.setCellValueFactory(new PropertyValueFactory<>("id"));
+            tv_Social.setCellValueFactory(new PropertyValueFactory<>("Social"));
+
             tv.setItems(data);
 
             editButton.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
             deleteButton.disableProperty().bind(tv.getSelectionModel().selectedItemProperty().isNull());
             addBtn.disableProperty().bind(Bindings.createBooleanBinding(() ->
-                            first_name.getText().isEmpty() || last_name.getText().isEmpty() ||
-                                    department.getText().isEmpty() || MajorComboBox.getValue() == null ||
-                                    email.getText().isEmpty(), first_name.textProperty(), last_name.textProperty(),
-                    department.textProperty(), MajorComboBox.valueProperty(), email.textProperty()));
+                            name.getText().isEmpty() || DOB.getText().isEmpty() ||
+                                    email.getText().isEmpty() ||address.getText().isEmpty() ||
+                                    income.getText().isEmpty() || MajorComboBox.getValue() == null ||
+                                    Social.getText().isEmpty() ||
+                                    password.getText().isEmpty(), name.textProperty(), DOB.textProperty(),
+                    email.textProperty(), MajorComboBox.valueProperty(), password.textProperty()));
 
             MajorComboBox.setItems(FXCollections.observableArrayList("Business", "CSC", "CPIS"));
 
@@ -84,14 +91,18 @@ public class HelloController {
     @FXML
     public void addNewRecord() {
         if (validateFields()) {
-            String selectedMajor = MajorComboBox.getValue();
-            if (selectedMajor != null) {
+            String taxForm = MajorComboBox.getValue();
+            if (taxForm != null) {
                 Account account = new Account(
-                        first_name.getText(),
-                        last_name.getText(),
-                        department.getText(),
-                        selectedMajor,
+                        name.getText(),
+                        DOB.getText(),
                         email.getText(),
+                        taxForm,
+                        password.getText(),
+                        phone.getText(),
+                        address.getText(),
+                        income.getint(),
+                        Social.getText(),
                         imageURL.getText()
                 );
                 cnUtil.insertUser(account);

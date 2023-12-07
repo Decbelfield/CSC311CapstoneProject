@@ -90,10 +90,6 @@ public class ConnectionDatabase {
     }
 
 
-
-    // This is the point where i havent altered much
-
-
     public void queryUserByLastName(String name) {
         connectToDatabase();
         try (Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
@@ -160,7 +156,7 @@ public class ConnectionDatabase {
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "INSERT INTO users (name, DOB, email, password, phone, address, income, imageURL) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO users (name, DOB, email, password, phone, address, income, imageURL, social) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, account.getName());
             preparedStatement.setString(2, account.getDOB());
@@ -188,7 +184,7 @@ public class ConnectionDatabase {
         connectToDatabase();
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
-            String sql = "UPDATE users SET name=?, DOB=?, email=?, password=?, phone=?, address=?, income=?, imageURL=? WHERE id=?";
+            String sql = "UPDATE users SET name=?, DOB=?, email=?, password=?, phone=?, address=?, income=?, imageURL=? WHERE id=?, social=?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, account.getName());
             preparedStatement.setString(2, account.getDOB());
