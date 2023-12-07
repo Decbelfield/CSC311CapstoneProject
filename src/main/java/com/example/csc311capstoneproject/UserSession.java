@@ -80,7 +80,7 @@ public class UserSession {
         return this.privileges;
     }
     public static void saveUser(String username, String password) {
-        try (Connection connection = DriverManager.getConnection( USERNAME, PASSWORD)) {
+        try (Connection connection = DriverManager.getConnection( USERNAME)) {
             String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, username);
@@ -92,6 +92,8 @@ public class UserSession {
                 e.printStackTrace(); //handle database errors
                 throw new RuntimeException(e);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
     public void cleanUserSession() {
