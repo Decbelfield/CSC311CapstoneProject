@@ -55,6 +55,7 @@ public class LogInController{
         String username = UserNameField.getText();
         String password = PasswordField.getText();
 
+
         if (username.isEmpty()) {
             // Username is empty, set the error message opacity to 1 for 10 seconds
             UserNameError.setOpacity(1.0);
