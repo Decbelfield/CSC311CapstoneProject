@@ -20,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
+
 public class LogInController{
 
     @FXML
@@ -90,15 +92,19 @@ public class LogInController{
             e.printStackTrace();
         }
     }
+    @FXML
     public void signUp(ActionEvent actionEvent) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
-            Scene scene = new Scene(root, 900, 600);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TermsAndConditions.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 650, 600);
             Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            // Handle the exception here (e.g., show an error message)
         }
     }
+
 }

@@ -2,12 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -122,7 +119,7 @@
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="createBtn" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="145.0" layoutY="308.0" mnemonicParsing="false" onAction="#swapScene" onMouseClicked="#register" prefHeight="29.0" prefWidth="345.0" text="Create Account">
+      <Button fx:id="createBtn" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="145.0" layoutY="308.0" mnemonicParsing="false" onAction="#handleCreateAccount" onMouseClicked="#handleCreateAccount" prefHeight="29.0" prefWidth="345.0" text="Create Account">
          <font>
             <Font name="Trebuchet MS Bold" size="15.0" />
          </font>
@@ -137,25 +134,5 @@
             <Font name="Trebuchet MS" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="RegistrationComplete" layoutX="246.0" layoutY="427.0" opacity="0.0" prefHeight="29.0" prefWidth="146.0" text="   Registration Successful" textFill="#2fae00" />
-      <SplitPane fx:id="TermsAndConditionsPane" layoutX="38.0" layoutY="7.0" onMouseDragged="#RegistrationScroll" opacity="0.0" orientation="VERTICAL" prefHeight="487.0" prefWidth="568.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <Pane layoutX="11.0" layoutY="9.0" prefHeight="400.0" prefWidth="545.0" style="-fx-background-color: white;">
-                     <children>
-                        <TextArea fx:id="TermsText" layoutY="-3.0" prefHeight="406.0" prefWidth="545.0" style="-fx-background-color: white;" text="Welcome to TaxForm&#10;&#10;These Terms and Conditions (&quot;Terms&quot;) govern your use of the TaxForm mobile application and website (collectively, the &quot;Service&quot;), operated by TaxForm Technologies Inc. (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).By accessing or using the Service, you agree to be bound by these Terms. If you disagree with any part of the Terms, you do not have permission to access the Service.&#10;&#10;TaxForm is a digital platform designed to provide users with tax preparation and filing services. The Service includes, but is not limited to, tax form preparation, submission assistance, and personalized tax advice.&#10;&#10;To use TaxForm, you must register for an account. You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer or device. You agree to accept responsibility for all activities that occur under your account or password.&#10;&#10;You agree not to use the Service:&#10;&#10;For any unlawful purpose.&#10;To solicit others to perform or participate in unlawful acts.&#10;To violate any international or national regulations, rules, laws, or local ordinances.&#10;To infringe upon or violate our intellectual property rights or the intellectual property rights of others.&#10;&#10;Some aspects of the Service may be provided for a fee. You agree to pay all fees and charges on time. Prices for our services are subject to change without notice.&#10;&#10;Your use of TaxForm is also governed by our Privacy Policy, which details how we collect, use, and disclose information about our users.&#10;&#10;All contents of the Service, including but not limited to text, graphics, logos, and software, are the property of TaxForm Technologies Inc. or its licensors and are protected by copyright and other intellectual property laws.&#10;&#10;TaxForm does not guarantee the accuracy or completeness of any information provided on the Service and is not responsible for any errors, omissions, or inaccuracies.&#10;&#10;In no event will TaxForm Technologies Inc. be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or in connection with your use of the Service.&#10;&#10;You agree to indemnify, defend, and hold harmless TaxForm Technologies Inc. and its affiliates, officers, directors, employees, agents, licensors, and suppliers from and against all losses, expenses, damages, and costs, including reasonable attorneys' fees, resulting from any violation of these Terms or any activity related to your account.&#10;&#10;We reserve the right to modify or replace these Terms at any time at our sole discretion. Your continued use of the Service after any such changes constitutes your acceptance of the new Terms.&#10;&#10;These Terms shall be governed by and construed in accordance with the laws of the jurisdiction in which TaxForm Technologies Inc. is registered, without regard to its conflict of law provisions.&#10;&#10;If you have any questions about these Terms, please contact us at [support@taxformtech.com].&#10;&#10;(support@taxformtech.com is not a real email, it is used as a placeholder)" wrapText="true" />
-                     </children>
-                  </Pane>
-                <AnchorPane layoutX="5.0" layoutY="417.0" minHeight="0.0" minWidth="0.0" prefHeight="68.0" prefWidth="557.0">
-                     <children>
-                        <Button fx:id="AgreedTerms" layoutX="54.0" layoutY="19.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="166.0" text="I agree to these terms" />
-                        <Button fx:id="RejectedTerms" layoutX="354.0" layoutY="19.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" text="I reject these terms" />
-                     </children>
-                  </AnchorPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
    </children>
 </AnchorPane>
