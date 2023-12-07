@@ -76,7 +76,8 @@ public class LogInController{
         }
 
         // Perform login logic here if needed
-
+         // If login is successful, save user information to the database
+        UserSession.saveUser(username, password);
         // If login is successful, navigate to another scene
         try {
             Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
