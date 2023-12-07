@@ -8,8 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class Client {
 
-    private SimpleStringProperty firstName, lastName, middleInitial,Ssn, telephone, email, address, city, state, zip;
-
+    private SimpleStringProperty fullName, firstName, lastName, middleInitial,Ssn, telephone, email, address, city, state, zip;
     private SimpleBooleanProperty marked;
 
     public Client() {
@@ -30,6 +29,7 @@ public class Client {
         this.firstName = new SimpleStringProperty(firstName);
         this.middleInitial = new SimpleStringProperty(middleInitial);
         this.lastName = new SimpleStringProperty(lastName);
+        this.fullName = new SimpleStringProperty(firstName + " " + middleInitial + " " + lastName);
         this.Ssn = new SimpleStringProperty(Ssn);
         this.telephone = new SimpleStringProperty(telephone);
         this.email = new SimpleStringProperty(email);
@@ -62,6 +62,12 @@ public class Client {
 
     public void setMiddleInitial(String middleInitial) {
         this.middleInitial.set(middleInitial);
+    }
+
+    public String getFullName() { return fullName.get();}
+
+    public void setFullName(String fullName) {
+        this.fullName.set(fullName);
     }
 
     public String getSsn() {
@@ -101,14 +107,9 @@ public class Client {
     }
 
 
-    public void setCity(String city) {
-        this.city.set(city);
-    }
+    public void setCity(String city) { this.city.set(city);}
 
-    public String getState() {
-        return state.get();
-    }
-
+    public String getState() { return state.get();}
 
     public void setState(String state) {
         this.state.set(state);
@@ -122,13 +123,9 @@ public class Client {
         this.zip.set(zip);
     }
 
-    public boolean isMarked() {
-        return marked.get();
-    }
+    public boolean isMarked() { return marked.get();}
 
-    public SimpleBooleanProperty markedProperty() {
-        return marked;
-    }
+    public SimpleBooleanProperty markedProperty() { return marked;}
 
     public void markClient() {
         this.marked.set(true);
@@ -137,4 +134,9 @@ public class Client {
     public void unmarkClient() {
         this.marked.set(false);
     }
+
+    public void setMarked(boolean marked) {
+        this.markedProperty().set(marked);
+    }
+
 }
