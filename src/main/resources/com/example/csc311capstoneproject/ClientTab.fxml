@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
@@ -26,7 +25,6 @@
                <children>
                   <Button layoutX="-53.0" layoutY="27.0" mnemonicParsing="false" onAction="#swapToW2" prefHeight="25.0" prefWidth="441.0" text="W-2" />
                   <Button layoutX="-53.0" layoutY="2.0" mnemonicParsing="false" onAction="#swapTo1040" prefHeight="25.0" prefWidth="441.0" text="1040" />
-                  <Button layoutX="-53.0" layoutY="52.0" mnemonicParsing="false" onAction="#swapTo1099" prefHeight="25.0" prefWidth="441.0" text="1099-DIV" />
                </children></AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="849.0" prefWidth="1424.0">
                <children>
@@ -43,79 +41,80 @@
                                     </ImageView>
                                     <Label fx:id="ssnW2Field" layoutX="448.0" layoutY="41.0" prefHeight="27.0" prefWidth="249.0">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
                                     <TextField fx:id="bW2" layoutX="172.0" layoutY="92.0" prefHeight="39.0" prefWidth="649.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
-                                    <TextField fx:id="_1W2" layoutX="864.0" layoutY="92.0" prefHeight="39.0" prefWidth="244.0" style="-fx-background-color: transparent;">
+                                    <TextField fx:id="_1W2" layoutX="864.0" layoutY="92.0" onKeyTyped="#calculateTaxes" prefHeight="39.0" prefWidth="244.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_2W2" layoutX="1148.0" layoutY="92.0" prefHeight="39.0" prefWidth="239.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_3W2" layoutX="864.0" layoutY="147.0" prefHeight="39.0" prefWidth="244.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_4W2" layoutX="1146.0" layoutY="147.0" prefHeight="39.0" prefWidth="244.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_5W2" layoutX="864.0" layoutY="201.0" prefHeight="39.0" prefWidth="244.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_6W2" layoutX="1146.0" layoutY="201.0" prefHeight="39.0" prefWidth="244.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
-                                    <TextArea fx:id="cW2" layoutX="181.0" layoutY="152.0" prefHeight="126.0" prefWidth="621.0" style="-fx-background-color: transparent;" />
-                                    <TextArea fx:id="eW2" layoutX="181.0" layoutY="374.0" prefHeight="183.0" prefWidth="621.0" style="-fx-background-color: transparent;" />
+                                    <TextArea fx:id="_cW2" layoutX="181.0" layoutY="152.0" prefHeight="126.0" prefWidth="621.0" style="-fx-background-color: transparent;">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></TextArea>
+                                    <TextArea fx:id="_eW2" layoutX="181.0" layoutY="374.0" prefHeight="183.0" prefWidth="621.0" style="-fx-background-color: transparent;">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font></TextArea>
                                     <TextField fx:id="_15W2" layoutX="218.0" layoutY="613.0" prefHeight="39.0" prefWidth="295.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_16W2" layoutX="510.0" layoutY="613.0" prefHeight="39.0" prefWidth="202.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_17W2" layoutX="712.0" layoutY="613.0" prefHeight="39.0" prefWidth="183.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_18W2" layoutX="895.0" layoutY="613.0" prefHeight="39.0" prefWidth="199.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                     <TextField fx:id="_19W2" layoutX="1094.0" layoutY="613.0" prefHeight="39.0" prefWidth="182.0" style="-fx-background-color: transparent;">
                                        <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </TextField>
-                                    <TextField fx:id="_20W2" layoutX="1275.0" layoutY="613.0" prefHeight="39.0" prefWidth="115.0" style="-fx-background-color: transparent;">
-                                       <font>
-                                          <Font size="18.0" />
+                                          <Font name="System Bold" size="18.0" />
                                        </font>
                                     </TextField>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="_1040Form" prefHeight="200.0" prefWidth="200.0">
+                              <AnchorPane fx:id="_1040Form" disable="true" prefHeight="200.0" prefWidth="200.0">
                                  <children>
                                     <ImageView fitHeight="1572.0" fitWidth="1457.0" layoutX="142.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="127.739990234375">
                                        <image>
@@ -159,15 +158,6 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="_1099Form" disable="true" prefHeight="946.0" prefWidth="1578.0" visible="false">
-                                 <children>
-                                    <ImageView fitHeight="1062.0" fitWidth="1558.0" layoutX="-2.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@Images/1099.jpg" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </AnchorPane>
                            </children>
                         </StackPane>
                      </content>
@@ -198,7 +188,7 @@
          <children>
             <VBox prefHeight="141.0" prefWidth="125.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="110.0" prefWidth="131.0" style="-fx-background-color: transparent;">
+                  <Button mnemonicParsing="false" onAction="#save" prefHeight="110.0" prefWidth="131.0" style="-fx-background-color: transparent;">
                      <graphic>
                         <ImageView fitHeight="102.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -230,30 +220,6 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-               </children>
-            </VBox>
-            <VBox prefHeight="141.0" prefWidth="125.0">
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="110.0" prefWidth="131.0" style="-fx-background-color: transparent;">
-                     <graphic>
-                        <ImageView fitHeight="102.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@Images/addForms.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <MenuButton mnemonicParsing="false" style="-fx-background-color: transparent;" text="Add Forms">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="1099" />
-                      <MenuItem mnemonicParsing="false" text="Schedule A" />
-                        <MenuItem mnemonicParsing="false" text="Schedule C" />
-                        <MenuItem mnemonicParsing="false" text="8862" />
-                    </items>
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </MenuButton>
                </children>
             </VBox>
          </children>

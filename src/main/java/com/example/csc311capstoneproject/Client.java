@@ -10,6 +10,7 @@ public class Client {
 
     private SimpleStringProperty fullName, firstName, lastName, middleInitial,Ssn, telephone, email, address, city, state, zip;
     private SimpleBooleanProperty marked;
+    private FormW2 w2;
 
     public Client() {
         firstName = null;
@@ -23,6 +24,7 @@ public class Client {
         state = null;
         zip = null;
         marked = new SimpleBooleanProperty(false);
+        w2 = null;
     }
 
     public Client(String firstName, String middleInitial, String lastName, String Ssn, String telephone, String email, String address, String city, String state, String zip) {
@@ -38,6 +40,8 @@ public class Client {
         this.state = new SimpleStringProperty(state);
         this.zip = new SimpleStringProperty(zip);
         this.marked = new SimpleBooleanProperty(false);
+
+        w2 = new FormW2(this);
     }
 
     public String getFirstName() {
@@ -137,6 +141,14 @@ public class Client {
 
     public void setMarked(boolean marked) {
         this.markedProperty().set(marked);
+    }
+
+    public boolean hasW2() {
+        return w2 != null;
+    }
+
+    public FormW2 getW2() {
+        return w2;
     }
 
 }

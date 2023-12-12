@@ -23,12 +23,12 @@ public class TaxAppController implements Initializable {
     @FXML
     private TabPane Tpane;
     @FXML
-    public  TableView<Client> tableView;
+    public TableView<Client> tableView;
     @FXML
-    private  TableColumn<Client, String> fullNameCol, ssnCol, telephoneCol, emailCol, addressCol, cityCol, stateCol, zipCol;
+    private TableColumn<Client, String> fullNameCol, ssnCol, telephoneCol, emailCol, addressCol, cityCol, stateCol, zipCol;
     @FXML
     private TableColumn<Client, Boolean> markedCol;
-    public  ObservableList<Client> data = FXCollections.observableArrayList();
+    public ObservableList<Client> data = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,6 +39,8 @@ public class TaxAppController implements Initializable {
         data.add(new Client("Christopher", "A", "Donaldson", "064-34-6157", "(755)852-4648", "donaldsonco@farmingdale.edu", "7155 Hawthorne St. ", "South Ozone Park", "NY", "11420"));
         data.add(new Client("Ronald", "A", "Booth", "874-99-2742", "(749)015-8331", "boothro@farmingdale.edu", "994 Race Ave", "Westbury", "NY", "11590"));
         data.add(new Client("Leo ", "A", "Noble", "728-94-6797", "(368)473-3755", "leono@farmingdale.edu", "59 Richardson Rd", "Astoria", "NY", "11103"));
+
+
 
         markedCol.setCellValueFactory(new PropertyValueFactory<>("marked"));
         fullNameCol.setCellValueFactory(new PropertyValueFactory<>("fullName"));
@@ -52,10 +54,22 @@ public class TaxAppController implements Initializable {
 
         tableView.setItems(data);
 
+
         if(!data.isEmpty()) {
             markedCol.setCellValueFactory(new PropertyValueFactory<>("marked"));
             markedCol.setCellFactory(tc -> {
                 CheckBox checkBox = new CheckBox();
+                checkBox.selectedProperty().addListener(((observableValue, aBoolean, t1) ->{
+                    if (t1) {
+                        tableView.getSelectionModel().getSelectedItem().setMarked(true);
+                    }
+
+                    else {
+                        tableView.getSelectionModel().getSelectedItem().setMarked(false);
+                    }
+
+                    System.out.println(tableView.getSelectionModel().getSelectedItem().isMarked());
+                }));
 
                 TableCell<Client, Boolean> cell = new TableCell<>();
                 cell.setGraphic(checkBox);
@@ -72,7 +86,7 @@ public class TaxAppController implements Initializable {
         }
     }
 
-    public void addClientForm(){
+    public void addClientForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddClientForm.fxml"));
             Parent addClientRoot = loader.load();
@@ -85,7 +99,6 @@ public class TaxAppController implements Initializable {
             addClientStage.initModality(Modality.APPLICATION_MODAL);
             addClientStage.setScene(new Scene(addClientRoot));
             addClientStage.show();
-
 
 
         } catch (IOException e) {
@@ -131,6 +144,35 @@ public class TaxAppController implements Initializable {
         });
 
         new Thread(task).start();
+    }
+
+    public void removeClient() {
+        data.removeIf(Client::isMarked);
+        tableView.setItems(data);
+
+    }
+
+    public void markAll(){
+        for(Client c: data) {
+            c.setMarked(true);
+        }
+    }
+
+    public void unmarkAll() {
+        for(Client c: data) {
+            c.setMarked(false);
+        }
+    }
+
+    public void help() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Help.fxml"));
+        Parent root = loader.load();
+
+        Stage helpStage = new Stage();
+        helpStage.setTitle("Tax Home Help");
+        helpStage.initModality(Modality.APPLICATION_MODAL);
+        helpStage.setScene(new Scene(root));
+        helpStage.show();
     }
 
 }
