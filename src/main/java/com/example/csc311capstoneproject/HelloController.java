@@ -24,7 +24,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+/**
+ * Controller for the main application window.
+ * This class handles user interactions and data manipulation for the application's GUI.
+ */
 public class HelloController {
 
     @FXML
@@ -48,7 +51,13 @@ public class HelloController {
 
     private final ConnectionDatabase cnUtil = new ConnectionDatabase();
     private final ObservableList<Account> data = cnUtil.getData();
-
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -79,7 +88,9 @@ public class HelloController {
             MyLogger.makeLog("Exception occurred during initialization: " + e.getMessage());
         }
     }
-
+    /**
+     * Adds a new record to the TableView and the database.
+     */
     @FXML
     public void addNewRecord() {
         if (validateFields()) {
@@ -115,7 +126,11 @@ public class HelloController {
         EditStatus.setOpacity(0.0);
     }
 
-
+    /**
+     * Validates the input fields before adding or editing a record.
+     *
+     * @return true if all fields are correctly filled, false otherwise
+     */
     private boolean validateFields() {
         // Validation logic based on Account fields
         return !name.getText().trim().isEmpty() &&
@@ -126,7 +141,9 @@ public class HelloController {
                 !income.getText().trim().isEmpty() &&
                 !Social.getText().trim().isEmpty();
     }
-
+    /**
+     * Clears all input fields in the form.
+     */
     @FXML
     public void clearForm() {
         name.clear();
@@ -139,7 +156,11 @@ public class HelloController {
         imageURL.clear();
         Social.clear();
     }
-
+    /**
+     * Logs out the current user and loads the login screen.
+     *
+     * @param actionEvent The event that triggered the method call
+     */
     @FXML
     protected void logOut(ActionEvent actionEvent) {
         try {
@@ -154,12 +175,16 @@ public class HelloController {
             MyLogger.makeLog("Error occurred while logging out: " + e.getMessage());
         }
     }
-
+    /**
+     * Closes the application.
+     */
     @FXML
     protected void closeApplication() {
         Platform.exit();
     }
-
+    /**
+     * Displays the About dialog with information about the application.
+     */
     @FXML
     protected void displayAbout() {
         try {
@@ -173,7 +198,9 @@ public class HelloController {
             MyLogger.makeLog("Exception occurred while displaying about: " + e.getMessage());
         }
     }
-
+    /**
+     * Edits the selected record in the TableView and updates it in the database.
+     */
     @FXML
     protected void editRecord() {
         // Get the selected account from the table
@@ -208,7 +235,9 @@ public class HelloController {
             EditStatus.setOpacity(1.0);
         }
     }
-
+    /**
+     * Deletes the selected record from the TableView and the database.
+     */
     @FXML
     protected void deleteRecord() {
         // Get the selected person from the table
@@ -225,7 +254,9 @@ public class HelloController {
         EditStatus.setOpacity(0.0);
         AddStatus.setOpacity(0.0);
     }
-
+    /**
+     * Opens a file chooser to select an image and displays it in the ImageView.
+     */
     @FXML
     protected void showImage() {
         // Show a file chooser dialog to select an image
@@ -234,13 +265,19 @@ public class HelloController {
             img_view.setImage(new Image(file.toURI().toString()));
         }
     }
-
+    /**
+     * Adds a record to the TableView.
+     */
     @FXML
     protected void addRecord() {
         // Show a dialog to add a new user
         showSomeone();
     }
-
+    /**
+     * Handles selection of an item in the TableView and updates the form fields accordingly.
+     *
+     * @param mouseEvent The mouse event that triggered the method call
+     */
     @FXML
     protected void selectedItemTV(MouseEvent mouseEvent) {
         Account selectedAccount = tv.getSelectionModel().getSelectedItem();
@@ -251,7 +288,11 @@ public class HelloController {
             // ... [Set other fields]
         }
     }
-
+    /**
+     * Changes the application theme to light.
+     *
+     * @param actionEvent The event that triggered the method call
+     */
     public void lightTheme(ActionEvent actionEvent) {
         try {
             // Change the application theme to light
@@ -267,7 +308,11 @@ public class HelloController {
             MyLogger.makeLog("Exception occurred while changing to light theme: " + e.getMessage());
         }
     }
-
+    /**
+     * Changes the application theme to dark.
+     *
+     * @param actionEvent The event that triggered the method call
+     */
     public void darkTheme(ActionEvent actionEvent) {
         try {
             // Change the application theme to dark
@@ -279,7 +324,9 @@ public class HelloController {
             MyLogger.makeLog("Exception occurred while changing to dark theme: " + e.getMessage());
         }
     }
-
+    /**
+     * Shows a dialog to add a new user with specified fields.
+     */
     public void showSomeone() {
         // Show a dialog to add a new user with name, last name, email, and major selection
         Dialog<Results> dialog = new Dialog<>();

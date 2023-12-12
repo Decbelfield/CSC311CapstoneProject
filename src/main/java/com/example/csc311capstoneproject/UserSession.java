@@ -11,7 +11,10 @@ import java.util.prefs.Preferences;
 
 import static com.google.cloud.sql.jdbc.internal.ConnectionProperty.PASSWORD;
 import static db.ConnectionDatabase.USERNAME;
-
+/**
+ * Class representing a user session in the application.
+ * This class manages the current user's session data including login credentials and privileges.
+ */
 public class UserSession {
 
     private static UserSession instance;
@@ -32,14 +35,28 @@ public class UserSession {
         userPreferences.put("PRIVILEGES",privileges);
     }
 
-
+    /**
+     * Private constructor for UserSession.
+     * It stores the user's session data and preferences.
+     *
+     * @param userName The username of the user.
+     * @param password The password of the user.
+     * @param privileges The privileges of the user.
+     */
 
     public static UserSession getInstance(String userName,String password, String privileges) {
         if(instance == null) {
             instance = new UserSession(userName, password, privileges);
         }
         return instance;
-    }
+    }/**
+     * Overloaded method to get the singleton instance of UserSession without privileges.
+     * If the instance is null, it creates a new instance with default privileges.
+     *
+     * @param userName The username of the user.
+     * @param password The password of the user.
+     * @return The singleton instance of UserSession.
+     */
 
     public static UserSession getInstace(String userName,String password) {
         if(instance == null) {
@@ -48,7 +65,14 @@ public class UserSession {
         return instance;
     }
 
-
+    /**
+     * Validates if the provided username and password are correct.
+     * Reads user data from a file and checks if the credentials match.
+     *
+     * @param UserNameField The username entered by the user.
+     * @param PasswordField The password entered by the user.
+     * @return true if the user is valid, false otherwise.
+     */
     public static boolean isUserValid(String UserNameField, String PasswordField) {
         try (BufferedReader reader = new BufferedReader(new FileReader(USER_DATA_FILE))) {
             String line;
@@ -79,6 +103,14 @@ public class UserSession {
     public String getPrivileges() {
         return this.privileges;
     }
+
+    /**
+     * Saves the user's data into the database.
+     * Inserts the username and password into the users table.
+     *
+     * @param username The username of the user.
+     * @param password The password of the user.
+     */
     public static void saveUser(String username, String password) {
         try (Connection connection = DriverManager.getConnection( USERNAME)) {
             String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
@@ -96,6 +128,9 @@ public class UserSession {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * Clears the current user session data.
+     */
     public void cleanUserSession() {
         this.userName = "";// or null
         this.password = "";

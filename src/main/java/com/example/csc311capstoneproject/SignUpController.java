@@ -13,7 +13,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+/**
+ * Controller for the sign-up screen of the application.
+ * This class handles user interactions for the registration process, including field validation and data submission.
+ */
 public class SignUpController {
     @FXML
     private TextField fNameField, LNameField, emailField, dobField, zipField;
@@ -25,7 +28,9 @@ public class SignUpController {
 @FXML
 private Button createBtn;
     private boolean flag;
-
+    /**
+     * Initializes the controller class. Sets up field validation for the sign-up form.
+     */
     @FXML
     public void initialize() {
         createBtn.setDisable(true);
@@ -36,7 +41,14 @@ private Button createBtn;
         dataVerification(zipField, zipErr, zipCheck, "\\d{5}");
 
     }
-
+    /**
+     * Validates a TextField's input against a regular expression and updates UI elements accordingly.
+     *
+     * @param txtField The TextField to be validated.
+     * @param error The Label to display an error message.
+     * @param check The Label to indicate successful validation.
+     * @param regEx The regular expression used for validation.
+     */
     private void dataVerification(TextField txtField, Label error, Label check, String regEx) {
         txtField.setOnKeyPressed(event -> {
             if (!event.getCode().isNavigationKey()) {
@@ -61,6 +73,9 @@ private Button createBtn;
             }
         });
     }
+    /**
+     * Validates whether all data fields are correctly filled and enables the create account button if so.
+     */
 @FXML
     private void validateData() {
         boolean isDataValid = fNameCheck.isVisible() && LNameCheck.isVisible() &&
@@ -95,7 +110,11 @@ private Button createBtn;
     }
 
 
-
+    /**
+     * Handles the action to go back to the login screen.
+     *
+     * @param actionEvent The event that triggered the method call.
+     */
     @FXML
     public void goBack(ActionEvent actionEvent) {
         try {
@@ -108,6 +127,12 @@ private Button createBtn;
             e.printStackTrace();
         }
     }
+    /**
+     * Handles the creation of a new user account. Saves the user data to the database
+     * and optionally navigates to another scene or shows a confirmation message.
+     *
+     * @param actionEvent The event that triggered the method call.
+     */
     @FXML
     private void handleCreateAccount(ActionEvent actionEvent) {
         if (!createBtn.isDisabled()) {

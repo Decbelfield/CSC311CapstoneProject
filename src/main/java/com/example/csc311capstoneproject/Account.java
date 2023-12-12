@@ -1,5 +1,8 @@
 package com.example.csc311capstoneproject;
 
+/**
+ *
+ */
 public class Account {
     String name;
     String DOB;

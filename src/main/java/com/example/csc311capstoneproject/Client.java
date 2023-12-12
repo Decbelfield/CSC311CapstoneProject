@@ -3,16 +3,20 @@ package com.example.csc311capstoneproject;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+
 /**
- * Class Client will store information pertaining to a client
+ * This class represents a client with various personal details and a Form W2.
  */
 public class Client {
 
     private SimpleStringProperty fullName, firstName, lastName, middleInitial,Ssn, telephone, email, address, city, state, zip;
     private SimpleBooleanProperty marked;
     private FormW2 w2;
-
+    /**
+     * Default constructor for creating a new Client with uninitialized properties.
+     */
     public Client() {
+        // Properties for client's information
         firstName = null;
         middleInitial = null;
         lastName = null;
@@ -26,8 +30,23 @@ public class Client {
         marked = new SimpleBooleanProperty(false);
         w2 = null;
     }
+    /**
+     * Constructs a new Client with specified personal details.
+     *
+     * @param firstName     the first name of the client
+     * @param middleInitial the middle initial of the client
+     * @param lastName      the last name of the client
+     * @param Ssn           the social security number of the client
+     * @param telephone     the telephone number of the client
+     * @param email         the email address of the client
+     * @param address       the physical address of the client
+     * @param city          the city of residence of the client
+     * @param state         the state of residence of the client
+     * @param zip           the postal zip code of the client
+     */
 
     public Client(String firstName, String middleInitial, String lastName, String Ssn, String telephone, String email, String address, String city, String state, String zip) {
+        // Initialize all properties with default values
         this.firstName = new SimpleStringProperty(firstName);
         this.middleInitial = new SimpleStringProperty(middleInitial);
         this.lastName = new SimpleStringProperty(lastName);
@@ -44,9 +63,21 @@ public class Client {
         w2 = new FormW2(this);
     }
 
+    // Getters and Setters for each property
+    /**
+     * Returns the first name of the client.
+     *
+     * @return the first name of the client
+     */
     public String getFirstName() {
         return firstName.get();
     }
+
+    /**
+     * Sets the first name of the client.
+     *
+     * @param firstName the new first name to set
+     */
 
     public void setFirstName(String firstName) {
         this.firstName.set(firstName);
@@ -142,11 +173,20 @@ public class Client {
     public void setMarked(boolean marked) {
         this.markedProperty().set(marked);
     }
+    /**
+     * Checks if the client has an associated Form W2.
+     *
+     * @return true if the client has a Form W2, false otherwise
+     */
 
     public boolean hasW2() {
         return w2 != null;
     }
-
+    /**
+     * Returns the Form W2 associated with the client.
+     *
+     * @return the Form W2 of the client
+     */
     public FormW2 getW2() {
         return w2;
     }

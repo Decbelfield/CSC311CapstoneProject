@@ -21,7 +21,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-
+/**
+ * Controller for the login screen of the application.
+ * This class handles user interactions on the login screen, including logging in and signing up.
+ */
 public class LogInController{
 
     @FXML
@@ -39,19 +42,33 @@ public class LogInController{
 
     private PauseTransition userNameErrorTimer;
     private PauseTransition passwordErrorTimer;
-
+    /**
+     * Initializes the controller class. This method is automatically invoked
+     * after the FXML file has been loaded. It sets up timers for hiding error messages.
+     */
     public void initialize() {
         // Create PauseTransitions for usernameError and passwordError
         userNameErrorTimer = createTimer(UserNameError);
         passwordErrorTimer = createTimer(PasswordError);
     }
 
+    /**
+     * Creates a PauseTransition timer to hide error messages after a specified duration.
+     *
+     * @param textNode The Text node whose opacity is to be changed.
+     * @return A configured PauseTransition object.
+     */
     private PauseTransition createTimer(Text textNode) {
         PauseTransition timer = new PauseTransition(Duration.seconds(10));
         timer.setOnFinished(event -> textNode.setOpacity(0.0));
         return timer;
     }
-
+    /**
+     * Handles the login action when the login button is pressed.
+     * Checks for valid input and navigates to the dashboard scene upon successful login.
+     *
+     * @param actionEvent The event that triggered the method call.
+     */
     @FXML
     public void loginAction(ActionEvent actionEvent) {
         String username = UserNameField.getText();
@@ -92,6 +109,12 @@ public class LogInController{
             e.printStackTrace();
         }
     }
+    /**
+     * Handles the sign-up action when the sign-up button is pressed.
+     * Navigates to the Terms and Conditions scene for new user registration.
+     *
+     * @param actionEvent The event that triggered the method call.
+     */
     @FXML
     public void signUp(ActionEvent actionEvent) {
         try {

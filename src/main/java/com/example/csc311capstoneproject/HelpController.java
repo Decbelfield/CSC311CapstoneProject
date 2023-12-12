@@ -6,7 +6,10 @@ import javafx.scene.control.TextArea;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Controller for the help section of the application.
+ * This class is responsible for initializing and displaying help instructions to the user.
+ */
 public class HelpController implements Initializable {
     @FXML
     private TextArea textArea;
@@ -30,7 +33,13 @@ public class HelpController implements Initializable {
             "Unmark All: \n" +
             "\t- Unmarks all clients that were marked.";
 
-
+    /**
+     * Initializes the HelpController. This method is called after all @FXML annotated fields have been injected.
+     * Sets the help instructions text in the text area.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         textArea.setText(helpPrompt);

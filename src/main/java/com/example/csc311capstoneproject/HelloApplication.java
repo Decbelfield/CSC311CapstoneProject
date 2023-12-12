@@ -9,18 +9,30 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
+/**
+ * Main application class for the CSC311 Database Project.
+ * This class initializes the application and manages the primary stage and scene transitions.
+ */
 public class HelloApplication extends Application {
     private static Scene scene;
     private static ConnectionDatabase db;
     private Stage primaryStage;
-
+    /**
+     * Main entry point for the application.
+     * Initializes the database connection and launches the application.
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         ConnectionDatabase ConnectionDatabase = new ConnectionDatabase();
         launch(args);
 
     }
-
+    /**
+     * Starts the primary stage of the application, sets basic properties and shows the initial scene.
+     *
+     * @param primaryStage the primary stage for this application
+     */
     public void start(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
@@ -29,7 +41,9 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("FSC CSC311 _ Database Project");
         showScene1();
     }
-
+    /**
+     * Loads and displays the initial splash screen scene.
+     */
     private void showScene1() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("SplashScreen.fxml"));
@@ -42,7 +56,9 @@ public class HelloApplication extends Application {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Transitions the current scene to the login scene with a fade-out effect.
+     */
     public void changeScene() {
         try {
             Parent newRoot = FXMLLoader.load(getClass().getResource("LogIn.fxml").toURI().toURL());

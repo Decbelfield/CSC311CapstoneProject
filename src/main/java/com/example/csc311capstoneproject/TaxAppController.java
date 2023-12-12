@@ -17,7 +17,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * Controller class for the main application window of the Tax Application.
+ * This class handles the initialization and user interactions within the main window,
+ * including client management and navigation between different parts of the application.
+ */
 public class TaxAppController implements Initializable {
 
     @FXML
@@ -29,7 +33,14 @@ public class TaxAppController implements Initializable {
     @FXML
     private TableColumn<Client, Boolean> markedCol;
     public ObservableList<Client> data = FXCollections.observableArrayList();
-
+    /**
+     * Initializes the controller class.
+     * This method is automatically called after the FXML file has been loaded.
+     * It sets up the table view with data and configures the UI elements.
+     *
+     * @param url The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data.add(new Client("Jakob", "O", "Guzman", "162-26-7783", "(631)827-5759", "guzmjo@farmingdale.edu", "1919 Joshuas Path", "Central Islip", "NY", "11722"));
@@ -85,7 +96,10 @@ public class TaxAppController implements Initializable {
             });
         }
     }
-
+    /**
+     * Opens a form to add a new client.
+     * This method is responsible for displaying the Add Client form in a new modal window.
+     */
     public void addClientForm() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddClientForm.fxml"));
@@ -107,6 +121,12 @@ public class TaxAppController implements Initializable {
 
     }
 
+    /**
+     * Adds a new client to the observable list of clients.
+     * This method updates the data in the table view with the newly added client.
+     *
+     * @param client The client to be added.
+     */
     public void addData(Client client) {
         data.add(client);
     }

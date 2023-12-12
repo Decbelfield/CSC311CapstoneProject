@@ -5,7 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-
+/**
+ * Controller class for managing the client tab in the user interface.
+ * This class handles the operations related to displaying and manipulating
+ * client data and forms such as W2, 1040, and 1099.
+ */
 public class ClientTabController {
 
     private Client client;
@@ -21,7 +25,12 @@ public class ClientTabController {
     private TextArea _cW2, _eW2;
     @FXML
     private Label ssnW2Field;
-
+    /**
+     * Sets the current form to the specified AnchorPane.
+     * It disables and hides the previous form and enables and shows the new form.
+     *
+     * @param anchorPane the AnchorPane to set as the current form
+     */
     public void setCurrentForm(AnchorPane anchorPane) {
            currentForm.setDisable(true);
            currentForm.setVisible(false);
@@ -30,7 +39,9 @@ public class ClientTabController {
            currentForm.setDisable(false);
            currentForm.setVisible(true);
     }
-
+    /**
+     * Saves the data entered in the W2 form fields into the W2 object.
+     */
     public void save() {
 
 
@@ -43,7 +54,11 @@ public class ClientTabController {
 
         System.out.println(_cW2.getText());
     }
-
+    /**
+     * Loads the 1040 form with the client's information.
+     *
+     * @param c the client whose information is to be loaded
+     */
 
     public void load1040(Client c){
 
@@ -63,7 +78,9 @@ public class ClientTabController {
         state1040Field.setText(c.getState());
         zip1040Field.setText(c.getZip());
     }
-
+    /**
+     * Loads the W2 form with the client's W2 information.
+     */
     public void loadW2() {
         ssnW2Field.setText(client.getSsn());
         bW2.setText(w2.getBoxB());_cW2.setText(w2.getBoxC());_eW2.setText(w2.getBoxE());
@@ -72,20 +89,29 @@ public class ClientTabController {
         _15W2.setText(w2.getBox15());_16W2.setText(w2.getBox16());_17W2.setText(w2.getBox17());
         _18W2.setText(w2.getBox18());_19W2.setText(w2.getBox19());
     }
-
+    /**
+     * Switches the view to the 1040 form.
+     */
     public void swapTo1040() {
         setCurrentForm(_1040Form);
     }
-
+    /**
+     * Switches the view to the W2 form and loads the W2 data.
+     */
     public void swapToW2() {
         setCurrentForm(w2Form);
         loadW2();
     }
-
+    /**
+     * Switches the view to the 1099 form.
+     */
     public void swapTo1099(){
         setCurrentForm(_1099Form);
     }
-
+    /**
+     * Calculates taxes based on the data entered in the W2 form.
+     * Updates relevant fields with calculated values.
+     */
     public void calculateTaxes() {
         w2.setBox1(_1W2.getText());
         w2.calculateWithholdings();

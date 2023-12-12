@@ -1,10 +1,15 @@
 package com.example.csc311capstoneproject;
-
+/**
+ * Represents a Form W2 with various fields for tax-related information.
+ * This class allows storing and manipulating data related to an individual's W2 form.
+ */
 public class FormW2 {
     private String boxB, boxC, boxE, box1, box2, box3, box4, box5, box6, box15, box16, box17, box18, box19;
     private Client client;
     private double taxRate;
-
+    /**
+     * Default constructor for creating an empty Form W2.
+     */
     public FormW2() {
         boxB = null;boxC = null;boxE = null;
         box1 = null;box2 = null;box3 = null;
@@ -14,7 +19,11 @@ public class FormW2 {
 
         client = null;
     }
-
+    /**
+     * Constructs a new Form W2 associated with a specific client.
+     *
+     * @param c the client associated with this Form W2
+     */
     public FormW2(Client c) {
         client = c;
 
@@ -30,7 +39,25 @@ public class FormW2 {
         boxE = e;
 
     }
-
+    // Getters and setters for each field
+    /**
+     * Sets all the fields of Form W2 at once.
+     *
+     * @param boxB  value for box B
+     * @param boxC  value for box C
+     * @param boxE  value for box E
+     * @param box1  value for box 1
+     * @param box2  value for box 2
+     * @param box3  value for box 3
+     * @param box4  value for box 4
+     * @param box5  value for box 5
+     * @param box6  value for box 6
+     * @param box15 value for box 15
+     * @param box16 value for box 16
+     * @param box17 value for box 17
+     * @param box18 value for box 18
+     * @param box19 value for box 19
+     */
     public void setAll(String boxB, String boxC,String boxE,String box1,String box2,String box3,String box4,String box5,String box6,String box15,String box16,String box17,String box18,String box19) {
 
         this.boxB = boxB;this.boxC = boxC;this.boxE = boxE;
@@ -40,7 +67,12 @@ public class FormW2 {
         this.box18= box18;this.box19 = box19;
 
     }
-
+// Example Javadoc for getter and setter
+    /**
+     * Returns the value in box B.
+     *
+     * @return the value of box B
+     */
     public String getBoxB() {
         return boxB;
     }
@@ -160,7 +192,10 @@ public class FormW2 {
     public void setClient(Client client) {
         this.client = client;
     }
-
+    /**
+     * Calculates and updates withholdings based on the wage amount in box 1.
+     * Updates the federal, social security, and medicare withholding amounts.
+     */
     public void calculateWithholdings(){
         double wages = Double.parseDouble(box1);
         double federalWithheld = wages * .0756;
@@ -172,7 +207,10 @@ public class FormW2 {
         box6 = Double.toString(medicareWithheld);
 
     }
-
+    /**
+     * Calculates and updates the income tax based on the wage amount in box 1.
+     * Uses the tax rate determined by calculateTaxRate method.
+     */
     public void calculateIncomeTax(){
         double wages = Double.parseDouble(box1);
         calculateTaxRate(wages);
@@ -185,6 +223,12 @@ public class FormW2 {
 
     }
 
+    /**
+     * Determines the tax rate based on the income amount.
+     * Sets the tax rate according to predefined income brackets.
+     *
+     * @param income the income amount to determine the tax rate for
+     */
     private void calculateTaxRate(Double income) {
         if((income >= 0) && (income <= 8500)) {
             taxRate = .04;

@@ -17,7 +17,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-
+/**
+ * Controller for the Terms and Conditions screen of the application.
+ * This class handles the display and interaction with the terms and conditions, including agreement or rejection.
+ */
 public class TermConditionController {
     @FXML
     private TextArea TermsText;
@@ -27,7 +30,10 @@ public class TermConditionController {
     private Button RejectedTerms;
     @FXML
     private AnchorPane ButtonPane;
-
+    /**
+     * Initializes the controller class.
+     * Sets up listeners for the terms text area to monitor when the user has scrolled to the bottom.
+     */
     public void initialize() {
         TermsText.textProperty().addListener((obs, oldText, newText) -> {
             checkScrollAtBottom();
@@ -38,7 +44,10 @@ public class TermConditionController {
         // Initially disable the ButtonPane
         ButtonPane.setDisable(true);
     }
-
+    /**
+     * Checks if the scroll is at the bottom of the terms text area.
+     * Enables the button pane when the user has scrolled to the bottom of the terms.
+     */
     private void checkScrollAtBottom() {
         // Get the total number of lines in the TextArea
         int totalLines = TermsText.getParagraphs().size();
@@ -50,7 +59,11 @@ public class TermConditionController {
         // Enable the ButtonPane if at bottom
         ButtonPane.setDisable(!atBottom);
     }
-
+    /**
+     * Handles the action to go back to the login screen.
+     *
+     * @param actionEvent The event that triggered the method call.
+     */
     @FXML
     public void goBack(ActionEvent actionEvent) {
         try {
@@ -63,7 +76,11 @@ public class TermConditionController {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Handles the action to proceed to the sign-up screen upon agreeing to the terms and conditions.
+     *
+     * @param actionEvent The event that triggered the method call.
+     */
     @FXML
     public void signUp(ActionEvent actionEvent) {
         try {
